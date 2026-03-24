@@ -1,7 +1,9 @@
-local BasePlugin = require "kong.plugins.base_plugin"
 local access = require "kong.plugins.kong-auth-request.access"
 
-local AuthRequestHandler = BasePlugin:extend()
+local AuthRequestHandler = {
+  VERSION  = "1.0.0",
+  PRIORITY = 10,
+}
 
 AuthRequestHandler.PRIORITY = 900
 

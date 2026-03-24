@@ -1,10 +1,47 @@
+local typedefs = require "kong.db.schema.typedefs"
+
 return {
-    no_consumer = true,
-    fields = {
-        timeout = { default = 10000, type = "number" },
-        keepalive_timeout = { default = 60000, type = "number" },
-        auth_uri = { required = true, type = "string" },
-        origin_request_headers_to_forward_to_auth = { type = "array", default = {} },
-        auth_response_headers_to_forward = { type = "array", default = {} }
-    }
+  name = "kong-auth-request",
+  fields = {
+    { consumer = typedefs.no_consumer },
+    {
+      config = {
+        type = "record",
+        fields = {
+          {
+            timeout = {
+              type = "number",
+              default = 10000,
+            },
+          },
+          {
+            keepalive_timeout = {
+              type = "number",
+              default = 60000,
+            }
+          },
+          {
+            auth_uri = {
+              type = "string",
+              required = true,
+            },
+          },
+          {
+            origin_request_headers_to_forward_to_auth = {
+              type = "array",
+              elements = { type = "string" },
+              default = {},
+            },
+          },
+          {
+            auth_response_headers_to_forward = {
+              type = "array",
+              elements = { type = "string" },
+              default = {},
+            },
+          },
+        },
+      },
+    },
+  },
 }
